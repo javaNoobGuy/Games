@@ -1,8 +1,13 @@
 const canvas = document.getElementById("pong");
 const context = canvas.getContext("2d");
 
-const screenWidth = 600;
-const screenHeight = 400;
+const screenWidth = 1600;
+const screenHeight = 1400;
+const π = Math.PI;
+
+var time = 0;
+var i = 0;
+const angles = [0, 90, 180, 270];
 
 context.fillStyle = "black";
 context.fillRect(0, 0, screenWidth, screenHeight);
@@ -27,11 +32,10 @@ const ball = {
     x : screenWidth/2,
     y : screenHeight/2,
     radius : 30,
-
+    angle : 0,
     speed : 5,
-
-    velocityX : 5,
-    velocityY: 5,
+    velocityX : 5 * Math.cos(90 * π/180),
+    velocityY: 5 * Math.sin(90 * π/180),
 
     color : "WHITE"
 
@@ -64,6 +68,21 @@ const com = {
 }
 
 function update(){
+    time++;
+    if(i > 3){
+        i = 0
+    }
+
+    if(time > 50 * 1){
+
+        ball.angle = angles[i];
+        i++;
+        time = 0;
+
+    }
+
+    ball.velocityX = ball.speed * Math.cos(ball.angle * π/180);
+    ball.velocityY = ball.speed * Math.sin(ball.angle* π/180);
 
     ball.x += ball.velocityX; 
     ball.y -= ball.velocityY;
