@@ -9,12 +9,23 @@ var time = 0;
 var i = 0;
 const angles = [0, 90, 180, 270];
 
+var mouseX = 0;
+var mouseY = 0;
+
+
 context.fillStyle = "black";
 context.fillRect(0, 0, screenWidth, screenHeight);
 
 let rectX = 0;
 
 //classes
+
+canvas.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    console.log(mouseX + " X");
+    console.log(mouseY + " Y");
+  });
 
 const net = {
 
@@ -81,8 +92,23 @@ function update(){
 
     }
 
-    ball.velocityX = ball.speed * Math.cos(ball.angle * π/180);
-    ball.velocityY = ball.speed * Math.sin(ball.angle* π/180);
+    let distanceX = ball.x - mouseX;
+    let distanceY = ball.y - mouseY;
+    console.log("distanceX=" +distanceX);
+    console.log("distanceY=" +distanceY);
+
+    
+    console.log(distanceX + " distancia do player x");
+    console.log(distanceY + " distancia do player y");
+
+    let sin = distanceY / (Math.sqrt((distanceX * distanceX) + (distanceY * distanceY)));
+    let cos = distanceX / (Math.sqrt((distanceX * distanceX) + (distanceY * distanceY)));
+    // console.log("sin=" +sin);
+    // console.log("cos=" +cos);
+
+
+    ball.velocityX = (ball.speed * cos) * -1//Math.cos(ball.angle * π/180);
+    ball.velocityY = (ball.speed * sin) //Math.sin(ball.angle* π/180);
 
     ball.x += ball.velocityX; 
     ball.y -= ball.velocityY;
