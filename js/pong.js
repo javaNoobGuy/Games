@@ -106,12 +106,17 @@ function update(){
     // console.log("sin=" +sin);
     // console.log("cos=" +cos);
 
+    if(Math.abs((Math.sqrt((distanceX * distanceX) + (distanceY * distanceY))) > (ball.radius * 0.2))){
 
-    ball.velocityX = (ball.speed * cos) * -1//Math.cos(ball.angle * π/180);
-    ball.velocityY = (ball.speed * sin) //Math.sin(ball.angle* π/180);
+        ball.velocityX = (ball.speed * cos) * -1//Math.cos(ball.angle * π/180);
+        ball.velocityY = (ball.speed * sin) //Math.sin(ball.angle* π/180);
 
-    ball.x += ball.velocityX; 
-    ball.y -= ball.velocityY;
+        ball.x += ball.velocityX * (Math.abs((Math.sqrt((distanceX * distanceX) + (distanceY * distanceY))))/100); 
+        ball.y -= ball.velocityY * (Math.abs((Math.sqrt((distanceX * distanceX) + (distanceY * distanceY))))/100);
+
+    }
+
+    
 
 
 }
